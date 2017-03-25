@@ -24,7 +24,7 @@ class Music extends Controller
     }
 
     protected function addSong(Request $request){
-        
+
     }
 
     protected function updateToken()
