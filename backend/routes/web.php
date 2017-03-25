@@ -15,3 +15,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/api/addsong', 'Music@addSong');
+Route::get('/authenticate', 'Music@authenticateWithSpotify');
