@@ -104,7 +104,7 @@ class Music extends Controller
     }
 
     public function authenticateWithSpotify(){
-        $this->playlist = '6O4HPYVqaiH239Y4fLWP50';
+        $this->playlist = '7ovSBQWZ0FHcKxsH3HXDqX';
         $oauthProvider = new Spotify(array(
             'clientId' => getenv('CLIENT_ID'),
             'clientSecret' => getenv('CLIENT_SECRET'),
