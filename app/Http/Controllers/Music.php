@@ -38,13 +38,13 @@ class Music extends Controller
         if ($response == "Fail") {
             $output = '<?xml version="1.0" encoding="UTF-8"?>
             <Response>
-                <Message>I\'m hungry!</Message>
+                <Message>Could not add song!</Message>
             </Response>';
         }
         else {
             $output = '<?xml version="1.0" encoding="UTF-8"?>
             <Response>
-                <Message>Successfully added '.$reponse.' to playlist.</Message>
+                <Message>Successfully added '.$response.' to playlist.</Message>
             </Response>';
         }
         return response($output, 200)->header('Content-Type', 'application/xml');
@@ -58,10 +58,11 @@ class Music extends Controller
         $uri = $track->uri;
         $id = substr($uri, 14);
         $name = $track->name;
+        $artist = $track->artists[0]->name;
         $response = $this->api->addUserPlaylistTracks('zachpanz88', $this->playlist, [
             $id
         ]);
-        return ($response) ? $name : "Fail";
+        return ($response) ? $name." by ".$artist : "Fail";
     }
 
     public function authenticateWithSpotify(){
