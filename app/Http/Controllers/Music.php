@@ -48,6 +48,13 @@ class Music extends Controller
         return response($output, 200)->header('Content-Type', 'application/xml');
     }
 
+    public function getList(){
+        $this->authenticateWithSpotify();
+        $tracks = $this->api->getUserPlaylistTracks('zachpanz88', $this->playlist);
+        $json = json_encode($tracks->items);
+        return response($json, 200)->header('Content-Type', 'application/json');
+    }
+
     public function add($query){
         $this->authenticateWithSpotify();
         try {

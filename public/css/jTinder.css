@@ -11,7 +11,7 @@ body {
 
 /* Wrapper with padding */
 .wrap  {
-    height: 500px;
+    height: 450px;
     padding: 5%;
 }
 
@@ -188,23 +188,18 @@ body {
 
 /* jTinder images */
 #tinderslide .pane5 .img {
-    background: url("../img/pane/pane5.jpg") no-repeat scroll center center;
     background-size: cover;
 }
 #tinderslide .pane4 .img {
-    background: url("../img/pane/pane4.jpg") no-repeat scroll center center;
     background-size: cover;
 }
 #tinderslide .pane3 .img {
-    background: url("../img/pane/pane3.jpg") no-repeat scroll center center;
     background-size: cover;
 }
 #tinderslide .pane2 .img {
-    background: url("../img/pane/pane2.jpg") no-repeat scroll center center;
     background-size: cover;
 }
 #tinderslide .pane1 .img {
-    background: url("../img/pane/pane1.jpg") no-repeat scroll center center;
     background-size: cover;
 }
 

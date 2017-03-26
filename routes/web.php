@@ -17,3 +17,4 @@ Route::get('/', function () {
 Route::get('/api/addsong', 'Music@addSong');
 Route::get('/authenticate', 'Music@authenticateWithSpotify');
 Route::get('/api/twilio', 'Music@twilio');
+Route::get('/api/list', 'Music@getList');

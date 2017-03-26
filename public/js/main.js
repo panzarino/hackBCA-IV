@@ -1,21 +1,36 @@
-/**
- * jTinder initialization
- */
-$("#tinderslide").jTinder({
-	// dislike callback
-    onDislike: function (item) {
+$(document).ready(function(){
+    $.ajax({
+        type: "GET",
+        url: "/api/list",
+        success: function(data){
+            console.log(data);
+            for (var i=0; i<data.length; i++){
+            	var num = i%5+1;
+            	$('#cards').append(
+            	    '<li class="pane'+num+'"> <div class="img" style="background: url(\'../img/pane/pane5.jpg\') no-repeat scroll center center;"></div> <div>Miami Beach</div> <div class="like"></div> <div class="dislike"></div> </li>'
+                )
+			}
+            /**
+             * jTinder initialization
+             */
+            $("#tinderslide").jTinder({
+                // dislike callback
+                onDislike: function (item) {
 
-    },
-	// like callback
-    onLike: function (item) {
+                },
+                // like callback
+                onLike: function (item) {
 
-    },
-	animationRevertSpeed: 200,
-	animationSpeed: 400,
-	threshold: 1,
-	likeSelector: '.like',
-	dislikeSelector: '.dislike'
-});
+                },
+                animationRevertSpeed: 200,
+                animationSpeed: 400,
+                threshold: 1,
+                likeSelector: '.like',
+                dislikeSelector: '.dislike'
+            });
+        }
+    });
+})
 
 /**
  * Set button action to trigger jTinder like & dislike.
