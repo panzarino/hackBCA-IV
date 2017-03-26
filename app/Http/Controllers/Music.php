@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use League\Flysystem\Exception;
 use SpotifyWebAPI;
 use DB;
 use Audeio\Spotify\Oauth2\Client\Provider\Spotify;
@@ -36,10 +37,7 @@ class Music extends Controller
     public function twilio(Request $request){
         $response = $this->add($request->input('Body'));
         if ($response == "Fail") {
-            $output = '<?xml version="1.0" encoding="UTF-8"?>
-            <Response>
-                <Message>Could not add song!</Message>
-            </Response>';
+            $output = $this->error();
         }
         else {
             $output = '<?xml version="1.0" encoding="UTF-8"?>
@@ -52,17 +50,28 @@ class Music extends Controller
 
     public function add($query){
         $this->authenticateWithSpotify();
-        $track = $this->api->search($query, 'track', [
-            'limit' => 1,
-        ])->tracks->items[0];
-        $uri = $track->uri;
-        $id = substr($uri, 14);
-        $name = $track->name;
-        $artist = $track->artists[0]->name;
+        try {
+            $track = $this->api->search($query, 'track', [
+                'limit' => 1,
+            ])->tracks->items[0];
+            $uri = $track->uri;
+            $id = substr($uri, 14);
+            $name = $track->name;
+            $artist = $track->artists[0]->name;
+        } catch (\Exception $e){
+            return "Fail";
+        }
         $response = $this->api->addUserPlaylistTracks('zachpanz88', $this->playlist, [
             $id
         ]);
         return ($response) ? $name." by ".$artist : "Fail";
+    }
+
+    public function error(){
+        return '<?xml version="1.0" encoding="UTF-8"?>
+            <Response>
+                <Message>Could not add song!</Message>
+            </Response>';
     }
 
     public function authenticateWithSpotify(){
