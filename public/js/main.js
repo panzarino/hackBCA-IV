@@ -3,12 +3,17 @@ $(document).ready(function(){
         type: "GET",
         url: "/api/list",
         success: function(data){
-            console.log(data);
+            data = data.reverse();
             for (var i=0; i<data.length; i++){
             	var num = i%5+1;
+            	var info = data[i];
+            	var uri = info.track.uri;
+            	var img = info.track.album.images[1].url;
+            	var name = info.track.name;
+            	var artist = info.track.artists[0].name;
             	$('#cards').append(
-            	    '<li class="pane'+num+'"> <div class="img" style="background: url(\'../img/pane/pane5.jpg\') no-repeat scroll center center;"></div> <div>Miami Beach</div> <div class="like"></div> <div class="dislike"></div> </li>'
-                )
+            	    '<li class="pane'+num+'"> <div class="img" style="background: url(\''+img+'\') no-repeat scroll center center;"></div> <div>'+name+' by '+artist+'</div> <div class="like"></div> <div class="dislike"></div> </li>'
+                );
 			}
             /**
              * jTinder initialization
