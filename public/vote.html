@@ -1,62 +1,203 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="en">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
     <title>PlaylistParty</title>
     <link rel="stylesheet" type="text/css" href="css/jTinder.css">
-</head>
-<body background="img/background.jpg">
-    <!-- start padding container -->
-    <div class="wrap">
-        <!-- start jtinder container -->
-        <div id="tinderslide">
-            <ul>
-                <li class="pane1">
-                    <div class="img"></div>
-                    <div>Miami Beach</div>
-                    <div class="like"></div>
-                    <div class="dislike"></div>
-                </li>
-                <li class="pane2">
-                    <div class="img"></div>
-                    <div>San Francisco</div>
-                    <div class="like"></div>
-                    <div class="dislike"></div>
-                </li>
-                <li class="pane3">
-                    <div class="img"></div>
-                    <div>Chicago</div>
-                    <div class="like"></div>
-                    <div class="dislike"></div>
-                </li>
-                <li class="pane4">
-                    <div class="img"></div>
-                    <div>New York</div>
-                    <div class="like"></div>
-                    <div class="dislike"></div>
-                </li>
-                <li class="pane5">
-                    <div class="img"></div>
-                    <div>Beach</div>
-                    <div class="like"></div>
-                    <div class="dislike"></div>
-                </li>
-            </ul>
-        </div>
-        <!-- end jtinder container -->
-    </div>
-    <!-- end padding container -->
+    <link rel="icon" type="image/png" href="img/icon.png">
 
-    <!-- jTinder trigger by buttons  -->
-    <div class="actions">
-        <a href="#" class="dislike"><i></i></a>
-        <a href="#" class="like"><i></i></a>
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/stylish-portfolio.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body background="img/background.jpg">
+
+    <!-- Header -->
+    <header id="top" class="header">
+        <div class="col-lg-6 col-lg-offset-3">
+            <!-- start padding container -->
+            <div class="wrap">
+                <!-- start jtinder container -->
+                <div id="tinderslide">
+                    <ul>
+                        <li class="pane1">
+                            <div class="img"></div>
+                            <div>Miami Beach</div>
+                            <div class="like"></div>
+                            <div class="dislike"></div>
+                        </li>
+                        <li class="pane2">
+                            <div class="img"></div>
+                            <div>San Francisco</div>
+                            <div class="like"></div>
+                            <div class="dislike"></div>
+                        </li>
+                        <li class="pane3">
+                            <div class="img"></div>
+                            <div>Chicago</div>
+                            <div class="like"></div>
+                            <div class="dislike"></div>
+                        </li>
+                        <li class="pane4">
+                            <div class="img"></div>
+                            <div>New York</div>
+                            <div class="like"></div>
+                            <div class="dislike"></div>
+                        </li>
+                        <li class="pane5">
+                            <div class="img"></div>
+                            <div>Beach</div>
+                            <div class="like"></div>
+                            <div class="dislike"></div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- end jtinder container -->
+            </div>
+            <!-- end padding container -->
+            <div class="actions">
+                <a href="#" class="dislike"><i></i></a>
+                <a href="#" class="like"><i></i></a>
+            </div>
+            <div class="text-center">
+                <button data-toggle="modal" href="#addSong" type="button" class="btn-lg btn-secondary">Add A Song</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addSong" tabindex="-1" role="dialog" aria-labelledby="addSongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addSongTitle">Add A Song</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="addSongForm" action="/api/addsong" method="get">
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label for="song" class="col-lg-2 col-form-label">Song</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" type="text" placeholder="Enter Song Here" id="song" name="query">
+                            </div>
+                            <div class="col-lg-12 text-center" id="addSongResponse"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="submitSong">Add Song</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
     <!-- jQuery lib -->
     <script type="text/javascript" src="js/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.0/jquery.form.min.js" integrity="sha384-E4RHdVZeKSwHURtFU54q6xQyOpwAhqHxy2xl9NLW9TQIqdNrNh60QVClBRBkjeB8" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script>
+        // Closes the sidebar menu
+        $("#menu-close").click(function(e) {
+            e.preventDefault();
+            $("#sidebar-wrapper").toggleClass("active");
+        });
+        // Opens the sidebar menu
+        $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#sidebar-wrapper").toggleClass("active");
+        });
+        // Scrolls to the selected menu item on the page
+        $(function() {
+            $('a[href*=#]:not([href=#],[data-toggle],[data-target],[data-slide])').click(function() {
+                if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
+                    var target = $(this.hash);
+                    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                    if (target.length) {
+                        $('html,body').animate({
+                            scrollTop: target.offset().top
+                        }, 1000);
+                        return false;
+                    }
+                }
+            });
+        });
+        //#to-top button appears after scrolling
+        var fixed = false;
+        $(document).scroll(function() {
+            if ($(this).scrollTop() > 250) {
+                if (!fixed) {
+                    fixed = true;
+                    // $('#to-top').css({position:'fixed', display:'block'});
+                    $('#to-top').show("slow", function() {
+                        $('#to-top').css({
+                            position: 'fixed',
+                            display: 'block'
+                        });
+                    });
+                }
+            } else {
+                if (fixed) {
+                    fixed = false;
+                    $('#to-top').hide("slow", function() {
+                        $('#to-top').css({
+                            display: 'none'
+                        });
+                    });
+                }
+            }
+        });
+        // Disable Google Maps scrolling
+        // See http://stackoverflow.com/a/25904582/1607849
+        // Disable scroll zooming and bind back the click event
+        var onMapMouseleaveHandler = function(event) {
+            var that = $(this);
+            that.on('click', onMapClickHandler);
+            that.off('mouseleave', onMapMouseleaveHandler);
+            that.find('iframe').css("pointer-events", "none");
+        }
+        var onMapClickHandler = function(event) {
+            var that = $(this);
+            // Disable the click handler until the user leaves the map area
+            that.off('click', onMapClickHandler);
+            // Enable scrolling zoom
+            that.find('iframe').css("pointer-events", "auto");
+            // Handle the mouse leave event
+            that.on('mouseleave', onMapMouseleaveHandler);
+        }
+        // Enable map zooming with mouse scroll when the user clicks the map
+        $('.map').on('click', onMapClickHandler);
+    </script>
+
     <!-- transform2d lib -->
     <script type="text/javascript" src="js/jquery.transform2d.js"></script>
     <!-- jTinder lib -->

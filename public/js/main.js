@@ -24,3 +24,15 @@ $('.actions .like, .actions .dislike').click(function(e){
 	e.preventDefault();
 	$("#tinderslide").jTinder($(this).attr('class'));
 });
+
+$('#addSongForm').ajaxForm({
+	url: '/api/addsong',
+	success: function (response) {
+		if (response == "Fail"){
+            $('#addSongResponse').html('<div class="alert alert-danger" role="alert"> Could not add that song to the playlist. </div>');
+		}
+		else {
+            $('#addSongResponse').html('<div class="alert alert-success" role="alert"> Successfully added '+response+' to the playlist. </div>');
+		}
+	}
+});
