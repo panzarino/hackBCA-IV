@@ -33,6 +33,10 @@ class Music extends Controller
         return $this->add($query);
     }
 
+    public function twilio(Request $request){
+        var_dump($request);
+    }
+
     public function add($query){
         $this->authenticateWithSpotify();
         $track = $this->api->search($query, 'track', [
