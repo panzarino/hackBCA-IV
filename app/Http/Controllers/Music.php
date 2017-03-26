@@ -34,7 +34,7 @@ class Music extends Controller
     }
 
     public function twilio(Request $request){
-        $response = add($request->input('body'));
+        $response = add($request->input('Body'));
         if ($response == "Fail") {
             $output = '<?xml version="1.0" encoding="UTF-8"?>
             <Response>
