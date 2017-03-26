@@ -34,7 +34,17 @@ class Music extends Controller
     }
 
     public function twilio(Request $request){
-        var_dump($request);
+        $response = add($request->input('body'));
+        if ($response == "Fail") {
+            return '<?xml version="1.0" encoding="UTF-8"?>
+            <Response>
+                <Message>I\'m hungry!</Message>
+            </Response>';
+        }
+        return '<?xml version="1.0" encoding="UTF-8"?>
+            <Response>
+                <Message>Successfully added '.$reponse.' to playlist.</Message>
+            </Response>';
     }
 
     public function add($query){
@@ -44,10 +54,11 @@ class Music extends Controller
         ])->tracks->items[0];
         $uri = $track->uri;
         $id = substr($uri, 14);
+        $name = $track->name;
         $response = $this->api->addUserPlaylistTracks('zachpanz88', $this->playlist, [
             $id
         ]);
-        return ($response) ? "Ok" : "Fail";
+        return ($response) ? $name : "Fail";
     }
 
     public function authenticateWithSpotify(){
