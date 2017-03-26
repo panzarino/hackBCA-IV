@@ -28,41 +28,26 @@ class Music extends Controller
 
     }
 
-    protected function addSong(Request $request){
-
+    public function addSong(Request $request){
+        $query = $request->input('query');
+        return $this->add($query);
     }
 
-    protected function updateToken()
-    {
-        $refreshToken = $this->session->getRefreshToken();
-        $this->session->refreshAccessToken($refreshToken);
-        $token = $this->session->getAccessToken();
-        $newRefreshToken = $this->session->getRefreshToken();
-        DB::table('Music')
-            ->truncate();
-        DB::table('Music')
-            ->insert([
-                'accessToken' => $token,
-                'refreshToken' => $newRefreshToken
-            ]);
-    }
-
-    protected function getToken(){
-        return DB::table('Music')
-            ->select('accessToken')
-            ->first();
-    }
-
-    protected function authenticate(){
-        $token = $this->getToken();
-        $this->session->requestAccessToken($token);
-        $accessToken = $this->session->getAccessToken();
-        $this->api->setAccessToken($accessToken);
-
-        return $this->getToken();
+    public function add($query){
+        $this->authenticateWithSpotify();
+        $track = $this->api->search($query, 'track', [
+            'limit' => 1,
+        ])->tracks->items[0];
+        $uri = $track->uri;
+        $id = substr($uri, 14);
+        $response = $this->api->addUserPlaylistTracks('zachpanz88', $this->playlist, [
+            $id
+        ]);
+        return ($response) ? "Ok" : "Fail";
     }
 
     public function authenticateWithSpotify(){
+        $this->playlist = env('SPOTIFY_PLAYLIST');
         $oauthProvider = new Spotify(array(
             'clientId' => getenv('CLIENT_ID'),
             'clientSecret' => getenv('CLIENT_SECRET'),
@@ -76,7 +61,7 @@ class Music extends Controller
         $api = new \Audeio\Spotify\API();
         $api->setAccessToken($this->accessToken);
 
-        return $api->getCurrentUser();
-
+        $this->api = new SpotifyWebAPI\SpotifyWebAPI();
+        $this->api->setAccessToken($this->accessToken);
     }
 }
