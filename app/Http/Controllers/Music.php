@@ -44,7 +44,7 @@ class Music extends Controller
         else {
             $output = '<?xml version="1.0" encoding="UTF-8"?>
             <Response>
-                <Message>Successfully added '.$response.' to playlist.</Message>
+                <Message>Successfully added '.htmlentities($response).' to playlist.</Message>
             </Response>';
         }
         return response($output, 200)->header('Content-Type', 'application/xml');
