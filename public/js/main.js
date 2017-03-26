@@ -1,9 +1,11 @@
+var count;
+
 $(document).ready(function(){
     $.ajax({
         type: "GET",
         url: "/api/list",
         success: function(data){
-            data = data.reverse();
+            count = data.length-1;
             for (var i=0; i<data.length; i++){
             	var num = i%5+1;
             	var info = data[i];
@@ -20,13 +22,9 @@ $(document).ready(function(){
              */
             $("#tinderslide").jTinder({
                 // dislike callback
-                onDislike: function (item) {
-
-                },
+                onDislike: dislike,
                 // like callback
-                onLike: function (item) {
-
-                },
+                onLike: like,
                 animationRevertSpeed: 200,
                 animationSpeed: 400,
                 threshold: 1,
@@ -35,7 +33,21 @@ $(document).ready(function(){
             });
         }
     });
-})
+});
+
+var dislike = function(){
+    console.log(count);
+    count--;
+};
+
+var like = function(){
+    $.ajax({
+        type: "GET",
+        url: "/api/upvote",
+        data: {'track': count}
+    });
+    count--;
+};
 
 /**
  * Set button action to trigger jTinder like & dislike.

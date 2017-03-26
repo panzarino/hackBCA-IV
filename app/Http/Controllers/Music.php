@@ -55,6 +55,28 @@ class Music extends Controller
         return response($json, 200)->header('Content-Type', 'application/json');
     }
 
+    public function upvote(Request $request){
+        $this->authenticateWithSpotify();
+        $track = intval($request->input('track'));
+        $new = ($track>0)? $track-1: 0;
+        $this->api->reorderUserPlaylistTracks('zachpanz88', $this->playlist, [
+            'range_start' => $track,
+            'range_length' => 1,
+            'insert_before' => $new,
+        ]);
+    }
+
+    public function downvote(Request $request){
+        $this->authenticateWithSpotify();
+        $track = intval($request->input('track'));
+        $new = $track+1;
+        $this->api->reorderUserPlaylistTracks('zachpanz88', $this->playlist, [
+            'range_start' => $track,
+            'range_length' => 1,
+            'insert_before' => $new,
+        ]);
+    }
+
     public function add($query){
         $this->authenticateWithSpotify();
         try {
