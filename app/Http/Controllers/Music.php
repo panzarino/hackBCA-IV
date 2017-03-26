@@ -36,15 +36,18 @@ class Music extends Controller
     public function twilio(Request $request){
         $response = add($request->input('body'));
         if ($response == "Fail") {
-            return '<?xml version="1.0" encoding="UTF-8"?>
+            $output = '<?xml version="1.0" encoding="UTF-8"?>
             <Response>
                 <Message>I\'m hungry!</Message>
             </Response>';
         }
-        return '<?xml version="1.0" encoding="UTF-8"?>
+        else {
+            $output = '<?xml version="1.0" encoding="UTF-8"?>
             <Response>
                 <Message>Successfully added '.$reponse.' to playlist.</Message>
             </Response>';
+        }
+        return response($output, 200)->header('Content-Type', 'application/xml');
     }
 
     public function add($query){
